@@ -1,0 +1,18 @@
+I developed and contributed to many pieces software during my career. The most important ones
+are listed hereafter.
+<br>
+<br>
+{% for s in site.data.software %}
+<div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+  <div class="resume-content">
+    <h3 class="mb-0">{{ s.name }}</h3>
+    <div class="subheading mb-3">
+      <a href="{{ s.website }}" target="_blank">
+				<span class="badge badge-link"><i class="fas fa-link"></i></span>
+         {{ s.title }}
+      </a>
+    </div>
+    <p>{{ s.description }}</p>
+  </div>
+</div>
+{% endfor %}

@@ -8,12 +8,12 @@ layout: default
 <hr class="m-0">
 
 <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="{{section.tag}}">
-	<div class="w-100">
-		{% if section.showtitle %}
-		<h2 class="mb-5">{{ section.name }}</h2>
-		{% endif %}
-		{% include {{ section.page }} %}
-	</div>
+  <div class="w-100">
+    {% if section.showtitle %}
+    <h2 class="mb-5">{{ section.name }}</h2>
+    {% endif %}
+    {% include {{ section.page }} %}
+  </div>
 </section>
 
 <hr class="m-0">
