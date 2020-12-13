@@ -1,0 +1,18 @@
+<p class="subheading mb-5">
+Only some of my currently running projects are shown hereafter.
+</p>
+
+{% for c in site.data.collaborations.present %}
+<div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+  <div class="resume-content">
+		<h3 class="mb-0">{{ c.name }}</h3>
+		<div class="subheading mb-3">   
+		  <a href="{{ c.url }}" target="_blank"><span class="badge badge-link"><i class="fas fa-link"></i></span></a>	
+			<span class="text-primary">{{ c.partners }}</span></div>
+    <p>{{ c.description }}</p>
+  </div>
+  <div class="resume-date text-md-right">
+    <span class="text-primary">{{ c.duration }}</span>
+  </div>
+</div>
+{% endfor %}

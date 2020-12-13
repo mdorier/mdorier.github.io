@@ -1,0 +1,24 @@
+#- item1:
+#  name: News
+#  page: index.html
+- item2:
+  name: Research
+  page: index.html
+- item3:
+  name: Resume
+  page: resume.html
+- item4:
+  name: Publications
+  page: publications.html
+- item5:
+  name: Software
+  page: software.html
+- item6:
+  name: Awards
+  page: awards.html
+#- item7:
+#  name: Music
+#  page: music.html
+#- item8:
+#  name: Gallery
+#  page: gallery.html

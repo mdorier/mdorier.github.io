@@ -1,0 +1,12 @@
+{% for e in site.data.education.educationHistory %}
+<div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+	<div class="resume-content">
+		<h3 class="mb-0">{{ e.organization }}</h3>
+		<div class="subheading mb-3">{{ e.degree }} - <span class="text-primary">{{ e.major }}</span></div>
+		<p>{{ e.description }}</p>
+	</div>
+	<div class="resume-date text-md-right">
+		<span class="text-primary">{{ e.duration }}</span>
+	</div>
+</div>
+{% endfor %}

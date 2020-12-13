@@ -1,0 +1,43 @@
+- title: Gilles Kahn Honorary award (accessit)
+  year: 2015
+  description: The Gilles Kahn prize is awarded every year by the Société Informatique de France and the French Academy of Science to the three best PhD theses in computer science in France (one first prize and two honorary prizes). It is one of the most prestigious PhD awards in Computer Science in France. It values the originality of the research, the originality of the domain and methods employed, the importance and impact of the results on the community, and the quality of the manuscript.
+  links:
+    - l1:
+      name: Gilles Kahn award
+      url: http://www.societe-informatique-de-france.fr/recherche/prix-de-these-gilles-kahn/
+    - l2:
+      name: Interview by Inria
+      url: http://www.inria.fr/centre/rennes/actualites/prix-de-these-gilles-kahn-2015-pour-matthieu-dorier-de-l-equipe-kerdata
+    - l3:
+      name: News on the ENS Rennes website
+      url: http://www.dit.ens-rennes.fr/version-francaise/navigation/actualites/matthieu-dorier-laureat-du-prix-de-these-gilles-kahn-2015-278404.kjsp
+- title: C3I Certification (Certificat de Compétences en Calcul Intensif)
+  year: 2015
+  description:  This label is awarded by the CPU (Conférence des Présidents d’Universités), GENCI, and the Maison de la Simulation, to doctors who demonstrated skills related to high performance computing during their PhD. The C3I label is multidisciplinary, and covers all domains of science, from theory to applied research. The candidate must have shown evidence of skills related to the use and application of HPC (optimization of parallel codes, distributed and parallel algorithms, large scale data management…). The label is awarded as a mean to increase the visibility of the work conducted by these young doctors, and provides them with an additional asset in their career, whether this career evolves in the academic sector or in the industry.
+  links:
+    - l1:
+      name: GENCI C3I
+      url: http://www.genci.fr/fr/content/c3i
+- title: 2nd best PhD thesis award from Fondation Rennes 1
+  year: 2014
+  description: The PhD award from the Fondation Rennes 1 is given every year to 8 outstanding new doctors from the 4 doctoral schools associated with the University of Rennes 1 (2 awards per doctoral school). The candidates are judged on the innovative aspects of their PhD thesis, “innovative” being understood in the sense of impact on socioeconomic development and technology transfers.
+  links:
+    - l1:
+      name: Fondation Rennes 1
+      url: https://fondation.univ-rennes1.fr/
+    - l2:
+      name: News on the Inria website
+      url: http://www.inria.fr/centre/rennes/actualites/fabien-danieau-et-matthieu-dorier-laureats-du-prix-de-these-de-la-fondation-rennes-1
+- title: 2nd ACM Student Research Competition at ICS 2011
+  year: 2011
+  description: The ACM Student Research Competition is an internationally recognized venue enabling undergraduate and graduate students to experience the research world, share research results and exchange ideas with other students, judges, and conference attendees, rub shoulders with academic and industry luminaries, understand the practical applications of their research, perfect their communication skills, and receive prizes and gain recognition from ACM and the greater computing community.
+  links:
+    - l1:
+      name: ACM Student Research Competition
+      url: http://src.acm.org/
+    - l2:
+      name: Interview by Inria
+      url: http://www.inria.fr/actualite/actualites-inria/matthieu-dorrier-laureat-2011-acm-src
+    - l3:
+      name: Interview by ENS
+      url: http://www.ens-cachan.fr/version-francaise/actualites/actualites-de-la-recherche/entretien-avec-matthieu-dorier-normalien-et-specialiste-du-calcul-haute-performance-130199.kjsp

@@ -1,0 +1,18 @@
+{% for a in site.data.awards %}
+<div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+  <div class="resume-content">
+    <h3 class="mb-0"><i class="fa-li fa fa-trophy text-warning"></i> {{ a.title }}</h3>
+    <p>{{ a.description }}</p>
+	{% if a.links %}
+	<ul class="fa-ul">
+	{% for link in a.links %}
+		<li><i class="fa-li fa fa-link"></i><a href="{{link.url}}" target="_blank">{{link.name}}</a></li>
+  {% endfor %}
+	</ul>
+	{% endif %}
+  </div>
+  <div class="resume-date text-md-right">
+    <span class="text-primary">{{ a.year }}</span>
+  </div>
+</div>
+{% endfor %}

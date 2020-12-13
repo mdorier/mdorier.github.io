@@ -1,0 +1,42 @@
+workHistory:
+  - company: Argonne National Laboratory
+    location: Lemont, IL
+    title: Software Development Specialist
+    duration: 2017 - Present
+    description: Since March 2017, I work as a Software Development Specialist. I conduct research in the field of I/O, storage, communications, and in situ analysis for HPC applications. I work on developing data services for HPC as well as conducting research around HPC storage and I/O. I am a core member of the Mochi project, which aims at developing building blocks for designing HPC data services.
+
+  - company: Argonne National Laboratory
+    location: Lemont, IL
+    title: Postdoctoral Researcher 
+    duration: 2015 - 2017
+    description: From February 2015 to March 2017, I was a postdoctoral appointee at the Mathematics and Computer Science division of Argonne National Laboratory, under the supervision of Rob Ross. I worked on I/O and storage for HPC applications, as well as collective communication algorithms, and event-driven simulations.
+
+  - company: Ecole Normale Supérieure de Rennes
+    location: Rennes, France
+    title: PhD Student, Teaching Assistant
+    duration: 2011 - 2014
+    description: From 2011 to 2014 I completed a PhD under the supervision of Gabriel Antoniu and Luc Bougé, in the KerData team of Inria Rennes and IRISA. My research focused on I/O and in situ analysis for HPC applications. I developed the Damaris middleware for data management using dedicated resources on HPC systems (see Software section). I collaborated with people from Argonne National Lab and the University of Illinois at Urbana-Champaign. During my PhD, I also tought several programming courses (Java, C, C++, OCaml) at the ENS and INSA engineering schools.
+
+  - company: KerData team, IRISA / Inria Rennes Bretagne Atlantique
+    location: Rennes, France
+    title: Internship
+    duration: 2011
+    description: In 2011 I completed my 6-month Master internship in the KerData team, supervised by Gabriel Antoniu. My research focused on I/O for HPC simulations.
+
+  - company: National Center for Supercomputing Applications
+    location: Urbana-Champaign, IL
+    title: Internship
+    duration: 2010
+    description: In 2010 I completed a 3-month internship at the NCSA under the supervision of Marc Snir and Franck Cappello. The goal of this internship was to propose a scalable solution to the I/O performance issues posed by the CM1 atmospheric simulation.
+
+  - company: PARIS team, IRISA / Inria Rennes Bretagne Atlantique
+    location: Rennes, France
+    title: Internship
+    duration: 2009
+    description: In 2009 I completed a research internship in the field of storage for MapReduce applications on cloud platforms, under the supervision of Luc Bougé and Bogdan Nicolae. During this internship I designed a distributed file system for Hadoop based on the BlobSeer distributed data management service.
+
+  - company: Ecole Normale Supérieure de Rennes
+    location: France
+    title: Normalien
+    duration: 2008 - 2012
+    description: From 2008 to 2012 I was a normalien (civil servant with a scholarship) from the Britanny extension of ENS Cachan (now ENS de Rennes). I studied computer science and telecommunications.

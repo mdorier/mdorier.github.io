@@ -1,0 +1,9 @@
+- language1:
+  name: French
+  proficiency: Native
+- language2:
+  name: English
+  proficiency: Professional
+- language3:
+  name: German
+  proficiency: Limited

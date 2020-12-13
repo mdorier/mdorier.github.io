@@ -1,0 +1,29 @@
+educationHistory:
+  - organization: Ecole Normale Supérieure de Rennes, IRISA, France
+    location: Rennes, France
+    degree: PhD
+    major: High performance computing
+    obtained: 2014
+    duration: 2011 - 2014
+    description: Thesis titled "Addressing the Challenges of I/O Variability in Post-Petascale HPC Simulations", completed under the supervision of Gabriel Antoniu and Luc Bougé.
+  - organization: Ecole Normale Supérieure de Cachan / Rennes and University of Rennes I
+    location: Rennes, France
+    degree: Master's degree
+    major: Research in computer science
+    obtained: 2011
+    duration: 2009 - 2011
+    description: Obtained with honors and the rank of 1st/70 students.
+  - organization: Ecole Normale Supérieure de Cachan
+    location: Rennes, France
+    degree: Magistère
+    major: Computer science and telecommunications
+    obtained: 2011
+    duration: 2008 - 2011
+    description: French diploma corresponding to a Master's degree with additional professional experience (in my case, research experience).
+  - organization: Ecole Normale Supérieure de Cachan / Rennes and University of Rennes I
+    location: Rennes, France
+    degree: Bachelor's degree
+    major: Computer science
+    obtained: 2009
+    duration: 2008 - 2009
+    description: Obtained with the rank of 4rth/106 students.

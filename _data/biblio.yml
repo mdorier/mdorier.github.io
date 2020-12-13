@@ -1,0 +1,286 @@
+- title: "SYMBIOSYS: A Methodology for Performance Analysis of Composable HPC Data Services"
+  authors: Srinivasan Ramesh, Allen D. Malony, Philip Carns, Robert B. Ross, Matthieu Dorier, Jerome Soumagne, Shane Snyder
+  type: conference
+  venue: Proceedings of the 35th IEEE International Parallel & Distributed Processing Symposium (IPDPS)
+  year: 2021
+  url:
+
+- title: "A Terminology for In Situ Visualization and Analysis Systems"
+  authors: Hank Childs al.
+  type: journal
+  venue: International Journal of High Performance Computing Applications
+  year: 2020
+  url: https://journals.sagepub.com/doi/abs/10.1177/1094342020935991
+
+- title: "Staging Based Task Execution for Data-driven, In-Situ Scientific Workflows"
+  authors: Zhe Wang, Pradeep Subedi, Matthieu Dorier, Philip E. Davis, Manish Parashar
+  type: conference
+  venue: Proceedings of the 2020 IEEE International Conference on Cluster Computing (CLUSTER)
+  year: 2020
+  url: https://ieeexplore.ieee.org/document/9229582
+
+- title: "DeepFreeze: Towards Scalable Asynchronous Checkpointing of Deep Learning Models"
+  authors: Bogdan Nicolae, Jiali Li, Justin Wozniak, George Bosilca, Matthieu Dorier, Franck Cappello
+  type: conference
+  venue: Proceedings of the 20th IEEE/ACM International Symposium on Cluster, Cloud and Internet Computing (Ccgrid)
+  year: 2020
+  url: https://ieeexplore.ieee.org/document/9139666
+
+- title: "Pufferscale: Rescaling HPC Data Services for High Energy Physics Applications"
+  authors: Nathanael Cheriere, Matthieu Dorier, Gabriel Antoniu, Stefan M Wild, Sven Leyffer, Robert Ross
+  type: conference
+  venue: Proceedings of the 20th IEEE/ACM International Symposium on Cluster, Cloud and Internet Computing (Ccgrid)
+  year: 2020
+  url: https://ieeexplore.ieee.org/document/9139614
+
+- title: How Fast Can One Resize a Distributed File System?
+  authors: Nathanael Cheriere, Matthieu Dorier, Gabriel Antoniu
+  type: journal
+  venue: Journal of Parallel and Distributed Computing (Elsevier JPDC)
+  year: 2020
+  url: https://www.sciencedirect.com/science/article/abs/pii/S0743731518305008
+
+- title: "Mochi: Composing Data Services for High-Performance Computing Environments"
+  authors: Robert B Ross, George Amvrosiadis, Philip Carns, Charles D Cranor, Matthieu Dorier, Kevin Harms, Greg Ganger, Garth Gibson, Samuel K Gutierrez, Robert Latham, Bob Robey, Dana Robinson, Bradley Settlemyer, Galen Shipman, Shane Snyder, Jerome Soumagne, Qing Zheng
+  type: journal
+  venue: Journal of Computer Science and Technology (Springer JCST)
+  year: 2020
+  url: https://link.springer.com/article/10.1007/s11390-020-9802-0
+
+- title: A Software Defined Storage Approach to Exascale Storage Services
+  authors: Jerome Soumagne, Robert Ross, Galen Shipman, George Amvrosiadis, Neil Fortner, Dana Robinson, Philip Carns, Matthieu Dorier, Robert Latham, Shane Snyder, David Rich, Bradley Settlemyer, Chuck Cranor, Greg Ganger, Qing Zheng
+  type: report
+  venue: Technical Report
+  year: 2019
+  url: https://www.osti.gov/biblio/1544789
+
+- title: The Challenges of Elastic in Situ Analysis and Visualization
+  authors: Matthieu Dorier, Orcun Yildiz, Tom Peterka, Robert Ross
+  type: workshop
+  venue: Proceedings of the ISAV workshop (SC19)
+  year: 2019
+  url: http://doi.acm.org/10.1145/3364228.3364234
+
+- title: "MPI jobs within MPI jobs: A practical way of enabling task-level fault-tolerance in HPC workflows"
+  authors: Justin Wozniak, Matthieu Dorier, Robert Ross, Tong Shu, Tahsin Kurc, Li Tang, Norbert Podhorszki, Matthew Wolf
+  type: journal
+  venue: Future Generation Computer Systems (Elsevier FGCS)
+  year: 2019
+  url: https://www.sciencedirect.com/science/article/pii/S0167739X1830757X
+
+- title: Is it Worth Relaxing Fault Tolerance to Speed Up Decommission in Distributed Storage Systems?
+  authors: Nathanael Cheriere, Matthieu Dorier, Gabriel Antoniu
+  type: conference
+  venue: Proceedings of the International Symposium in Cluster, Cloud, and Grid Computing (CCgrid) 
+  year: 2019
+  url: https://ieeexplore.ieee.org/document/8752891
+
+- title: Methodology for the Rapid Development of Scalable HPC Data Services
+  authors: Matthieu Dorier, Philip Carns, Kevin Harms, Robert Latham, Robert Ross, Shane Snyder, Justin Wozniak, Samuel Gutierrez, Bob Robey, Brad Settlemyer, Galen Shipman, Jerome Soumagne, James Kowalkowski, Marc Paterno, Saba Sehrish
+  type: workshop
+  venue: Proceedings of the PDSW-DISC 2018 workshop (SC18)
+  year: 2018
+  url: https://ieeexplore.ieee.org/document/8638421
+
+- title: "Pufferbench: Evaluating and Optimizing Malleability of Distributed Storage"
+  authors: Nathanael Cheriere, Matthieu Dorier, Gabriel Antoniu
+  type: workshop
+  venue: Proceedings of the PDSW-DISC 2018 workshop (SC18) 
+  year: 2018
+  url: https://ieeexplore.ieee.org/document/8638424
+
+- title: A Lower Bound for the Commission Times in Replication-Based Distributed Storage Systems
+  authors: Nathanael Cheriere, Matthieu Dorier, Gabriel Antoniu
+  type: report
+  venue: RR-9186
+  year: 2018
+  url: https://hal.archives-ouvertes.fr/hal-01817638
+
+- title: "CoSS: Proposing a Contract-Based Storage System for HPC"
+  authors: Matthieu Dorier, Matthieu Dreher, Tom Peterka, Robert Ross
+  type: workshop
+  venue: Proceedings of the PDSW-DISC 2017 workshop (SC17) 
+  year: 2017
+  url: https://dl.acm.org/doi/10.1145/3149393.3149396
+
+- title: Supporting Task-level Fault-Tolerance in HPC Workflows by Launching MPI Jobs inside MPI Jobs
+  authors: Matthieu Dorier, Justin Wozniak, Robert Ross
+  type: workshop
+  venue: Proceedings of the WORKS 2017 workshop (SC17)
+  year: 2017
+  url: https://dl.acm.org/doi/10.1145/3150994.3151001
+
+- title: Performance-Constrained In Situ Visualization of Atmospheric Simulations
+  authors: Matthieu Dorier, Robert Sisneros, Leonardo Bautista-Gomez, Tom Peterka, Leigh G Orf, Rob Ross, Lokman Rahmani, Gabriel Antoniu, Luc Bougé
+  type: report
+  venue: RR-8855
+  year: 2016
+  url: https://hal.inria.fr/hal-01273718
+
+- title: A Cross-Layer Solution in Scientific Workflow System for Tackling Data Movement Challenge
+  authors: Dong Dai, Robert Ross, Dounia Khaldi, Yonghong Yan, Matthieu Dorier, Neda Tavakoli, Yong Chen
+  type: poster
+  venue: IEEE/ACM International Conference for High Performance Computing, Networking, Storage and Analysis (SC16)
+  year: 2016
+  url: http://sc16.supercomputing.org/sc-archive/tech_poster/tech_poster_pages/post256.html
+
+- title: Design and Evaluation of Topology-aware Scatter and AllGather Algorithms for Dragonfly Networks
+  authors: Nathanael Cheriere, Matthieu Dorier, Rob Ross, Shadi Ibrahim
+  type: poster
+  venue: IEEE/ACM International Conference for High Performance Computing, Networking, Storage and Analysis (SC) - ACM Student Research Competition
+  year: 2016
+  url: http://sc16.supercomputing.org/sc-archive/src_poster/src_poster_pages/spost146.html
+
+- title: "Damaris: Addressing Performance Variability in Data Management for Post-Petascale Simulations"
+  authors: Matthieu Dorier, Gabriel Antoniu, Franck Cappello, Marc Snir, Robert Sisneros, Orcun Yildiz, Shadi Ibrahim, Tom Peterka, Leigh Orf
+  type: journal
+  venue: ACM Transactions on Parallel Computing (ToPC)
+  year: 2016
+  url: https://dl.acm.org/doi/10.1145/2987371
+
+- title: Leveraging Burst Buffer Coordination to Prevent I/O Interference
+  authors: Anthony Kougkas, Matthieu Dorier, Rob Latham, Rob Ross, Xian-He Sun
+  type: conference
+  venue: IEEE International Conference on eScience
+  year: 2016
+  url: http://dl.acm.org/citation.cfm?id=2987371
+
+- title: Evaluation of Topology-Aware Broadcast Algorithms for Dragonfly Networks
+  authors: Matthieu Dorier, Misbah Mubarak, Rob Ross, Jianping Kelvin Li, Christopher D. Carothers, Kwan-Liu Ma
+  type: conference
+  venue: IEEE International Conference on Cluster Computing (CLUSTER)
+  year: 2016
+  url: https://ieeexplore.ieee.org/document/7776477
+
+- title: Adaptive Performance-Constrained In Situ Visualization of Atmospheric Simulations
+  authors: Matthieu Dorier, Robert Sisneros, Leonardo Bautista Gomez, Tom Peterka, Leigh Orf, Lokman Rahmani, Gabriel Antoniu, Luc Bougé
+  type: conference
+  venue: IEEE International Conference on Cluster Computing (CLUSTER)
+  year: 2016
+  url: https://ieeexplore.ieee.org/document/7776519
+
+- title: On the Root Causes of Cross-Application I/O Interference in HPC Storage Systems
+  authors: Orcun Yildiz, Matthieu Dorier, Shadi Ibrahim, Rob Ross, Gabriel Antoniu
+  type: conference
+  venue: IEEE International Parallel and Distributed Processing Symposium (IPDPS)
+  year: 2016
+  url: https://ieeexplore.ieee.org/abstract/document/7516071
+
+- title: On the Energy Footprint of I/O Management in Exascale HPC Systems
+  authors: Matthieu Dorier, Orcun Yildiz, Shadi Ibrahim, Anne-Cécile Orgerie, Gabriel Antoniu
+  type: journal
+  venue: Elsevier Future Generation Computer Systems (FGCS)
+  year: 2016
+  url: http://www.sciencedirect.com/science/article/pii/S0167739X16300462
+
+- title: Get Out of the Way! Applying Compression to Internal Data Structures
+  authors: Robert Latham, Matthieu Dorier, Robert Ross
+  type: workshop
+  venue: Proceedings of the PDSW-DISC 2016 workshop (SC16)
+  year: 2016
+  url: https://dl.acm.org/doi/10.5555/3019046.3019053
+
+- title: "Using Formal Grammars to Predict I/O Behaviors in HPC: the Omnisc’IO Approach"
+  authors: Matthieu Dorier, Shadi Ibrahim, Gabriel Antoniu, Rob Ross
+  type: journal
+  venue: IEEE Transactions on Parallel and Distributed Systems (TPDS)
+  year: 2015
+  url: https://ieeexplore.ieee.org/document/7289462
+
+- title: Lessons Learned from Building In Situ Coupling Frameworks
+  authors: Matthieu Dorier, Matthieu Dreher, Tom Peterka, Gabriel Antoniu, Bruno Raffin, Justin M. Wozniak
+  type: workshop
+  venue: First Workshop on In Situ Infrastructures for Enabling Extreme-Scale Analysis and Visualization (ISAV)
+  year: 2015
+  url: https://hal.inria.fr/hal-01224846
+
+- title: On the Use of Formal Grammars to Predict HPC I/O Behaviors
+  authors: Matthieu Dorier, Shadi Ibrahim, Gabriel Antoniu, Rob Ross
+  type: report
+  venue: RR-8725
+  year: 2015
+  url: https://hal.inria.fr/hal-01149941
+
+- title: Addressing the Challenges of I/O Variability in Post-Petascale HPC Simulations 
+  authors: Matthieu Dorier
+  type: thesis
+  venue: PhD thesis
+  year: 2014
+  url: https://tel.archives-ouvertes.fr/tel-01099105
+
+- title: "Omnisc’IO: A Grammar-Based Approach to Spatial and Temporal I/O Patterns Prediction"
+  authors: Matthieu Dorier, Shadi Ibrahim, Gabriel Antoniu, Robert Ross
+  type: conference
+  venue: IEEE/ACM International Conference for High Performance Computing, Networking, Storage and Analysis (SC14)
+  year: 2014
+  url: https://ieeexplore.ieee.org/document/7013038
+
+- title: "CALCioM: Mitigating I/O Interference in HPC Systems through Cross-Application Coordination"
+  authors: Matthieu Dorier, Gabriel Antoniu, Robert Ross, Dries Kimpe, Shadi Ibrahim
+  type: conference
+  venue: IEEE International Parallel and Distributed Processing Symposium (IPDPS)
+  year: 2014
+  url: https://ieeexplore.ieee.org/document/6877251
+
+- title: A Performance and Energy Analysis of I/O Management Approaches for Exascale Systems
+  authors: Orcun Yildiz, Matthieu Dorier, Shadi Ibrahim, Gabriel Antoniu
+  type: workshop
+  venue: Sixth International Workshop on Data Intensive Distributed Computing (DIDC)
+  year: 2014
+  url: doi.acm.org/10.1145/2608020.2608026
+
+- title: "Damaris/Viz: a Nonintrusive, Adaptable and User-Friendly In Situ Visualization Framework"
+  authors: Matthieu Dorier, Roberto R. Sisneros, Tom Peterka, Gabriel Antoniu, Dave B. Semeraro
+  type: conference
+  venue: IEEE Symposium on Large-Scale Data Analysis and Visualization (LDAV)
+  year: 2013
+  url: https://ieeexplore.ieee.org/document/6675160
+
+- title: Efficient I/O using Dedicated Cores in Large-Scale HPC Simulations
+  authors: Matthieu Dorier
+  type: poster
+  venue: IEEE International Parallel and Distributed Processing Symposium, PhD forum
+  year: 2013
+  url: https://ieeexplore.ieee.org/document/6651151
+
+- title: A Nonintrusive, Adaptable and User-Friendly In Situ Visualization Framework
+  authors: Matthieu Dorier, Roberto R. Sisneros, Tom Peterka, Gabriel Antoniu, Dave B. Semeraro
+  type: report
+  venue: RR-8314
+  year: 2013
+  url: https://hal.inria.fr/hal-00831265
+
+- title: "Damaris: How to Efficiently Leverage Multicore Parallelism to Achieve Scalable, Jitter-free I/O"
+  authors: Matthieu Dorier, Gabriel Antoniu, Franck Cappello, Marc Snir, Leigh G. Orf
+  type: conference
+  venue: IEEE International Conference on Cluster Computing (CLUSTER)
+  year: 2012
+  url: https://ieeexplore.ieee.org/document/6337776
+
+- title: "Damaris: Leveraging Multicore Parallelism to Mask I/O Jitter"
+  authors: Matthieu Dorier, Gabriel Antoniu, Franck Cappello, Marc Snir, Leigh Orf
+  type: report
+  venue: RR-7706
+  year: 2012
+  url: https://hal.inria.fr/inria-00614597
+
+- title: On the Benefit of Dedicating Cores to Mask I/O Jitter in HPC Simulations
+  authors: Matthieu Dorier
+  type: thesis
+  venue: Master thesis
+  year: 2011
+  url: http://dumas.ccsd.cnrs.fr/dumas-00636162
+
+- title: Damaris - Using Dedicated I/O Cores for Scalable Post-petascale HPC Simulations
+  authors: Matthieu Dorier
+  type: poster
+  venue: ACM International Conference on Supercomputing (ICS) - ACM Student Research Competion
+  year: 2011
+  url: https://dl.acm.org/doi/abs/10.1145/1995896.1995953
+
+- title: "BlobSeer: Bringing High Throughput under Heavy Concurrency to Hadoop Map-Reduce Applications"
+  authors: Bogdan Nicolae, Diana Moise, Gabriel Antoniu, Luc Bougé, Matthieu Dorier
+  type: conference
+  venue: IEEE International Symposium on Parallel & Distributed Processing (IPDPS)
+  year: 2010
+  url: https://ieeexplore.ieee.org/document/5470433

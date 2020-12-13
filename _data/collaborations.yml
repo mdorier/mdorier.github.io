@@ -1,0 +1,27 @@
+present:
+  - name: "Mochi: a Software Defined Storage Approach to Exascale Storage Services"
+    duration: 2015 - Present
+    partners: ANL, LANL, CMU, HDF Group
+    description: DOE-funded project working on designing efficient building blocks for data services in HPC systems. In this context I am the lead on multiple libraries for storage, I/O, and networking.
+    url: https://www.mcs.anl.gov/research/projects/mochi/
+  - name: "SciDAC-4: HEP Data Analytics on HPC" 
+    duration: 2018 - Present
+    partners: ANL, FermiLab, LBNL, Colorado State University, University of Cincinnati
+    description: New capabilities at ASCR computing facilities drive us to rethink what is possible within the HEP (High-Energy Physics) scientific workflow. Within this project I designed HEPnOS, a distributed storage system specifically optimized for event data produced by HEP workflows.
+    url: https://computing.fnal.gov/hep-on-hpc/
+  - name: Joint Laboratory for Extreme-Scale Computing (JLESC)
+    duration: 2009 - Present
+    partners: Inria, ANL, UIUC, JSC, BSC, RIKEN-AICS
+    description: The purpose of the Joint Laboratory for Extreme Scale Computing (JLESC) is to be an international, virtual organization whose goal is to enhance the ability of member organizations and investigators to make the bridge between Petascale and Extreme computing.
+    url: https://jlesc.github.io/
+past:
+  - name: Compute on Data Path
+    duration: 2015 - 2017
+    partners: Texas Tech, Northwestern University, University of Houston, Oakland University, NSF
+    description: This project combats the increasingly critical data movement challenge in high performance computing. This project studies the feasibility of a new Compute on Data Path methodology that expects to improve the performance and energy efficiency for high performance computing.
+    url: http://discl.cs.ttu.edu/cdp/doku.php
+  - name: Data@Exascale associated team
+    duration: 2013 - 2018
+    partners: KerData (Inria Rennes, IRISA), ANL, UIUC
+    description: The team addresses the area of large scale data management for post-petascale supercomputers and for clouds. We aim to investigate several open issues related to storage and I/O in HPC, but also in situ data visualization and analysis from large scale simulations.
+    url: http://www.irisa.fr/kerdata/data-at-exascale/doku.php

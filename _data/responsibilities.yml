@@ -1,0 +1,27 @@
+- r1:
+  key: pc
+  name: Program Committee Member
+  conf:
+    - ACM/IEEE CCGrid (2016, 2017, 2018, 2019)
+    - EuroPar (2016, 2017)
+    - IEEE BigData (2016, 2017, 2018)
+    - ISC (2017)
+    - IEEE Cluster (2017)
+    - EBDMA (2017)
+    - IEEE HPCC (2017)
+    - ISAV (2017, 2018)
+    - ICA3PP (2017, 2018)
+    - CEBDA (2018)
+    - IEEE BigData Congress (2018, 2019)
+
+- r2:
+  key: panelist
+  name: Panelist
+  conf:
+    - IEEE LDAV 2016
+
+- r3:
+  key: session
+  name: Session Chair
+  conf:
+    - IEEE Cluster 2017

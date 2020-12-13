@@ -1,0 +1,28 @@
+programmingSkills:
+  - c:
+    name: C
+    percentage: 100%
+  - cpp:
+    name: C++ (including C++11 and 14)
+    percentage: 100%
+  - mpi:
+    name: MPI
+    percentage: 100%
+  - python:
+    name: Python
+    percentage: 80%
+  - deeplearning:
+    name: Deep Learning (TensorFlow, Keras)
+    percentage: 70%
+  - ruby:
+    name: Ruby
+    percentage: 70%
+  - java:
+    name: Java
+    percentage: 50%
+  - fortran:
+    name: Fortran
+    percentage: 50%
+  - ocaml:
+    name: OCaml
+    percentage: 40%

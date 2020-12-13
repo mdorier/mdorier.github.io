@@ -1,0 +1,43 @@
+- t1:
+  key: ocamlChateaubriand
+  name: Programming in OCaml
+  location: Lycée Chateaubriand, Rennes
+  year: 2010 - 2012
+  level: 2nd year prépa MP students
+  description: These practical courses aim to initiate students of classes préparatoires MP (2nd year) to programming and basic algorithms in OCaml, targeting the competitions for French grandes écoles. Problems studied go from sorting arrays to more complex algorithms such as automata determinization, manipulation of rational expressions, implementation of tree-based data structures for information storage and retrieval. My goal consisted of helping and supervising students during the sessions, while the exercises were provided by the person in charge of the course.
+
+- t2:
+  key: javaINSA
+  name: Object Oriented Programming in Java
+  location: INSA Rennes
+  year: 2011 - 2013
+  level: 1st year INSA students
+  description: The objective of these courses was to teach the basics of object-oriented programming (notions of classes, attributes, methods, inheritance, etc.) and their applications in Java. The courses/TD were actual courses based on slides provided by the person in charge of the module, and enriched by exercises on paper proposed either by the person in charge or by myself. The TP consisted of applying the notions studied during the courses through exercises provided by the person in charge of the module. The student had to send me their code at the end of each session to get a correction the following week.
+- t3:
+  key: ProgENSrennes
+  name: Programming in OCaml, C, C++
+  location: ENS Rennes
+  year: 2012 - 2013
+  level: 1st year ENS students (INFO)
+  description: The objective of the programming course at ENS is less programming itself than the study of the underlying notions to any programming languages (environment, functional programming, imperative, object-oriented, exceptions, continuations, higher-order functions, etc.). The practical sessions consisted of applying the notions seen during the course in solving typical programming problems (Delaunay triangulation, AVL balancing, ray tracing, etc.). This course contained 4 projects associated with a report and a short oral defense. I wrote most of the subjects used for the TPs and projects. These subjects are still used today by my successors.
+- t4:
+  key: ArchSysENSrennes
+  name: Architecture and Systems
+  location: ENS Rennes
+  year: 2013 - 2014
+  level: 1st year ENS students (INFO)
+  description: "The objectives of this courses were to understand the basics of microprocessor design, from logic gates to the main components of a microprocessor: computation unit, memory, registers, instruction processing, etc. The practical sessions consisted in implementing the architectures seen during the courses on FPGAs. This course ended with a project of an architecture testing the reflexes (delay between a LED turning on and the user pressing a button). For the needs of these practical sessions, I had to adapt the set of exercises used in previous years to the new FPGA devices acquired by ENS."
+- t5:
+  key: rubyENSRennes
+  name: Programming in Ruby
+  location: ENS Rennes
+  year: 2012 - 2014
+  level: 1st year ENS students (INFO)
+  description: This course consists of an initiation to the Ruby language for 1st year students of the INFO department at ENS. It takes place during the first two weeks following the beginning of the classes, in september. It allows students to immerse themselves into a language they usually do not know, work in groups, and get used to how the classes will operate during the year (revolving around research-oriented group projects). In this context, I designed the courses myself, as well as the exercises on machines and the subjects of mini-projects (game of life in 2012, research in a database of texts in 2013, and artificial intelligence for the Awale game in 2014).
+- t6:
+  key: UNIXENSrennes
+  name: UNIX initiation
+  location: ENS Rennes
+  year: 2014
+  level: 3rd year ENS students (MATHS)
+  description: This course initiates new students arriving in the MATHS department of ENS Rennes to the UNIX environment installed on the machines at ENS. During this TP, we go through the main shell commands (cd, ls, chmod, etc.) as well as SSH/SCP and some other common tools.

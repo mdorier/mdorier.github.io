@@ -1,0 +1,21 @@
+<ul class="timeline">
+	{% for y in (2010..2021) reversed %}
+	<li>
+		<h2><span class="text-primary">{{y}}</span></h2>
+		{% for p in site.data.biblio %}
+		  {% if p.year == y %}
+			<p><span class="badge badge-{{p.type}}">{{p.type}}</span>
+			{% if p.url %}
+			  <a href="{{ p.url }}" target="_blank"><span class="badge badge-link"><i class="fas fa-link"></i></span></a>
+			{% else %}
+			  <span class="badge badge-link">(to appear)</span>
+		  {% endif %}
+			  <b>{{ p.title }},</b>
+				{{p.authors}},
+				<i>{{p.venue}}</i>
+			</p>
+			{% endif %}
+	  {% endfor %}
+	</li>
+	{% endfor %}
+</ul>

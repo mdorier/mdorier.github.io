@@ -1,0 +1,33 @@
+sections:
+  - name: About
+    showtitle: false
+    page: about.html
+    tag:  about
+  - name: Experience
+    showtitle: true
+    page: experience.html
+    tag:  experience
+  - name: Education
+    showtitle: true
+    page: education.html
+    tag:  education
+#  - name: Skills
+#    showtitle: true
+#    page: skills.html
+#    tag:  skills
+  - name: Publications
+    showtitle: true
+    page: publications.html
+    tag:  publications
+  - name: Projects
+    showtitle: true
+    page: projects.html
+    tag:  projects
+  - name: Software
+    showtitle: true
+    page: software.html
+    tag:  software
+  - name: Awards
+    showtitle: true
+    page: awards.html
+    tag:  awards
