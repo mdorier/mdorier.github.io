@@ -2,21 +2,25 @@
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none">Matthieu Dorier</span>
       <span class="d-none d-lg-block">
-				<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/avatar.png" alt="">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/assets/img/avatar.png" alt="">
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-		</button>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-				<!-- Sections can be defined in _data/sections.yaml -->
-				{% for section in site.data.sections.sections %}
+        <!-- Sections can be defined in _data/sections.yaml -->
+        {% for section in site.data.sections.sections %}
           <li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#{{section.tag}}">{{ section.name }}</a>
+            <a class="nav-link js-scroll-trigger" href="/index.html#{{section.tag}}">{{ section.name }}</a>
           </li>
-				{% endfor %}
+        {% endfor %}
+        <!-- Blog is not a section but an actual link -->
+          <li class="nav-item">
+            <a class="nav-link" href="/blog.html">Blog</a>
+          </li>
       </ul>
     </div>
 </nav>
