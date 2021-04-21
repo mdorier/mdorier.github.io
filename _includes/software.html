@@ -8,7 +8,7 @@ are listed hereafter.
     <h3 class="mb-0">{{ s.name }}</h3>
     <div class="subheading mb-3">
       <a href="{{ s.website }}" target="_blank">
-				<span class="badge badge-link"><i class="fas fa-link"></i></span>
+         <span class="badge badge-link"><i class="fas fa-link"></i></span>
          {{ s.title }}
       </a>
     </div>
@@ -16,3 +16,36 @@ are listed hereafter.
   </div>
 </div>
 {% endfor %}
+
+  <div class="resume-content">
+    <h3 class="mb-0">GitHub Activity</h3>
+    <div class="subheading mb-3">
+      <a href="https://github.com/mdorier" target="_blank">
+         <span class="badge badge-link"><i class="fas fa-link"></i></span>
+         https://github.com/mdorier
+      </a>
+    </div>
+    <p>
+    <div class="calendar">
+    <!-- Loading stuff -->
+    Loading GitHub activity...
+    </div>
+    </p>
+  </div>
+
+<script
+  src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js">
+</script>
+
+<!-- Optionally, include the theme (if you don't want to struggle to write the CSS) -->
+<!--
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
+/>
+-->
+
+<!-- Prepare a container for your calendar. -->
+<script>
+    GitHubCalendar(".calendar", "mdorier", { responsive: true });
+</script>
