@@ -1,3 +1,10 @@
+- title: "Facilitating Staging-based Unstructured Mesh Processing to Support Hybrid In-Situ Workflows"
+  authors: Zhe Wang, Pradeep Subedi, Matthieu Dorier, Philip E. Davis, Manish Parashar
+  type: workshop
+  venue: 2nd Workshop on High-Performance Storage (HPS)
+  year: 2021
+  url:
+
 - title: "SYMBIOSYS: A Methodology for Performance Analysis of Composable HPC Data Services"
   authors: Srinivasan Ramesh, Allen D. Malony, Philip Carns, Robert B. Ross, Matthieu Dorier, Jerome Soumagne, Shane Snyder
   type: conference
