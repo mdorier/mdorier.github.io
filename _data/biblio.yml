@@ -26,6 +26,13 @@
   year: 2020
   url: https://ieeexplore.ieee.org/document/9229582
 
+- title: "DeepClone: Lightweight State Replication of Deep Learning Models for Data Parallel Training"
+  authors: Bogdan Nicolae, Justin M Wozniak, Matthieu Dorier, Franck Cappello
+  type: conference
+  venue: Proceedings of the 2020 IEEE International Conference on Cluster Computing (CLUSTER)
+  year: 2020
+  url: https://ieeexplore.ieee.org/abstract/document/9229626/
+
 - title: "DeepFreeze: Towards Scalable Asynchronous Checkpointing of Deep Learning Models"
   authors: Bogdan Nicolae, Jiali Li, Justin Wozniak, George Bosilca, Matthieu Dorier, Franck Cappello
   type: conference
