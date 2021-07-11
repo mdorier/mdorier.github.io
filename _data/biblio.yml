@@ -3,14 +3,14 @@
   type: workshop
   venue: 2nd Workshop on High-Performance Storage (HPS)
   year: 2021
-  url:
+  url: https://ieeexplore.ieee.org/document/9460618
 
 - title: "SYMBIOSYS: A Methodology for Performance Analysis of Composable HPC Data Services"
   authors: Srinivasan Ramesh, Allen D. Malony, Philip Carns, Robert B. Ross, Matthieu Dorier, Jerome Soumagne, Shane Snyder
   type: conference
   venue: Proceedings of the 35th IEEE International Parallel & Distributed Processing Symposium (IPDPS)
   year: 2021
-  url:
+  url: https://ieeexplore.ieee.org/document/9460467
 
 - title: "A Terminology for In Situ Visualization and Analysis Systems"
   authors: Hank Childs al.
@@ -31,7 +31,7 @@
   type: conference
   venue: Proceedings of the 2020 IEEE International Conference on Cluster Computing (CLUSTER)
   year: 2020
-  url: https://ieeexplore.ieee.org/abstract/document/9229626/
+  url: https://ieeexplore.ieee.org/document/9229626/
 
 - title: "DeepFreeze: Towards Scalable Asynchronous Checkpointing of Deep Learning Models"
   authors: Bogdan Nicolae, Jiali Li, Justin Wozniak, George Bosilca, Matthieu Dorier, Franck Cappello
@@ -99,7 +99,7 @@
 - title: "Pufferbench: Evaluating and Optimizing Malleability of Distributed Storage"
   authors: Nathanael Cheriere, Matthieu Dorier, Gabriel Antoniu
   type: workshop
-  venue: Proceedings of the PDSW-DISC 2018 workshop (SC18) 
+  venue: Proceedings of the PDSW-DISC 2018 workshop (SC18)
   year: 2018
   url: https://ieeexplore.ieee.org/document/8638424
 
@@ -113,7 +113,7 @@
 - title: "CoSS: Proposing a Contract-Based Storage System for HPC"
   authors: Matthieu Dorier, Matthieu Dreher, Tom Peterka, Robert Ross
   type: workshop
-  venue: Proceedings of the PDSW-DISC 2017 workshop (SC17) 
+  venue: Proceedings of the PDSW-DISC 2017 workshop (SC17)
   year: 2017
   url: https://dl.acm.org/doi/10.1145/3149393.3149396
 
@@ -178,7 +178,7 @@
   type: conference
   venue: IEEE International Parallel and Distributed Processing Symposium (IPDPS)
   year: 2016
-  url: https://ieeexplore.ieee.org/abstract/document/7516071
+  url: https://ieeexplore.ieee.org/document/7516071
 
 - title: On the Energy Footprint of I/O Management in Exascale HPC Systems
   authors: Matthieu Dorier, Orcun Yildiz, Shadi Ibrahim, Anne-Cécile Orgerie, Gabriel Antoniu
