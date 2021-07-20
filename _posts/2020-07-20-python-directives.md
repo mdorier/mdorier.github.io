@@ -7,7 +7,7 @@ title: Python directives and domain-specific language
 If you work in high-performance computing, you probably know
 the [spack](https://spack.readthedocs.io/en/latest/) package
 manager. In spack, packages are defined as python classes,
-using what looks like a domain-specific language, as examplified bellow.
+using what looks like a domain-specific language, as exemplified bellow.
 
 {% highlight python %}
 class Zlib(Package):
