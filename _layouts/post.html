@@ -8,7 +8,15 @@ layout: default
     <h2 class="mb-5">{{ page.title }}</h2>
     <h4>{{ page.date | date_to_string }} - <span class="text-primary">{{ page.author }}</span></h4>
     {{ content }}
+    <script src="https://utteranc.es/client.js"
+        repo="mdorier/mdorier.github.io"
+        issue-term="pathname"
+        label="Comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+
   </div>
 </section>
-
 <hr class="m-0">
