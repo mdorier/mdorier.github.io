@@ -1,3 +1,12 @@
+- title: R&D 100 Award
+  year: 2021
+  description: The Mochi project, on which I have been working since 2015 alongside my Argonne colleagues and collaborators from Carnegie Mellon University, Los Alamos National Laboratory, and The HDF Group, was awarded the prestigious R&D 100 Award.
+  links:
+    - name: Announcement by R&D World
+      url: http://www.rdworldonline.com/2021-rd-100-award-winners-announced-in-process-prototyping-and-software-services-categories/
+    - name: Mochi website
+      url: https://wordpress.cels.anl.gov/mochi/2021/09/01/mochi-selected-as-a-2021-rd-100-finalist/
+
 - title: Gilles Kahn Honorary award (accessit)
   year: 2015
   description: The Gilles Kahn prize is awarded every year by the Société Informatique de France and the French Academy of Science to the three best PhD theses in computer science in France (one first prize and two honorary prizes). It is one of the most prestigious PhD awards in Computer Science in France. It values the originality of the research, the originality of the domain and methods employed, the importance and impact of the results on the community, and the quality of the manuscript.
