@@ -1,3 +1,24 @@
+- title: "Adaptive Placement of Data Analysis Tasks For Staging Based In-Situ Processing"
+  authors: Zhe Wang, Pradeep Subedi, Matthieu Dorier, Philip E. Davis, Manish Parashar
+  type: conference
+  venue: 28th IEEE International Conference on High Performance Computing, Data, and Analytics (HiPC)
+  year: 2021
+  url:
+
+- title: "SYMBIOMON: A High Performance, Composable Monitoring Service"
+  authors: Srinivasan Ramesh, Robert Ross, Matthieu Dorier, Allen Malony, Philip Carns, Kevin Huck
+  type: conference
+  venue: 28th IEEE International Conference on High Performance Computing, Data, and Analytics (HiPC)
+  year: 2021
+  url:
+
+- title: "An Adaptive Elasticity Policy For Staging Based In-Situ Processing"
+  authors: Zhe Wang, Matthieu Dorier, Pradeep Subedi, Philip E. Davis, Manish Parashar
+  type: workshop
+  venue: 16th Workshop on Workflows in Support of Large-Scale Science (WORKS)
+  year: 2021
+  url:
+
 - title: "Facilitating Staging-based Unstructured Mesh Processing to Support Hybrid In-Situ Workflows"
   authors: Zhe Wang, Pradeep Subedi, Matthieu Dorier, Philip E. Davis, Manish Parashar
   type: workshop
