@@ -3,8 +3,9 @@
   type: conference
   venue: Proceedings of the 36th IEEE International Parallel & Distributed Processing Symposium (IPDPS)
   year: 2022
-  url:
-  
+  url: https://ieeexplore.ieee.org/document/9820656
+  extra: best paper finalist
+
 - title: "Adaptive Placement of Data Analysis Tasks For Staging Based In-Situ Processing"
   authors: Zhe Wang, Pradeep Subedi, Matthieu Dorier, Philip E. Davis, Manish Parashar
   type: conference

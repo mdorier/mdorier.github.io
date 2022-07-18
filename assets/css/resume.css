@@ -191,6 +191,11 @@ a:hover, a:focus, a:active {
   background-color: #bfbfbf;
 }
 
+.badge-extra {
+  color: #fff;
+  background-color: #bfbfbf;
+}
+
 .badge-workshop {
   color: #fff;
   background-color: #bda038;

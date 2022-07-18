@@ -10,6 +10,9 @@
 			{% else %}
 			  <span class="badge badge-link">(to appear)</span>
 		  {% endif %}
+      {% if p.extra %}
+        <span class="badge badge-extra">{{ p.extra }}</span>
+      {% endif %}
 			  <b>{{ p.title }},</b>
 				{{p.authors}},
 				<i>{{p.venue}}</i>
