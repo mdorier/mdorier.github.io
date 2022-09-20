@@ -1,3 +1,10 @@
+- title: "Research Perspectives Toward Autonomic Optimization of In Situ Analysis and Visualization"
+  authors: Zhe Wang, Matthieu Dorier, Manish Parashar
+  type: workshop
+  venue: Proceedings of the ISAV workshop (SC22)
+  year: 2022
+  url:
+
 - title: "HPC Storage Service Autotuning Using Variational-Autoencoder-Guided Asynchronous Bayesian Optimization"
   authors: Matthieu Dorier, Romain Egele, Prasanna Balaprakash, Jaehoon Koo, Sandeep Madireddy, Srinivasan Ramesh, Allen D. Malony, Rob Ross
   type: conference
