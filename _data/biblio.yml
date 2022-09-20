@@ -1,3 +1,10 @@
+- title: "HPC Storage Service Autotuning Using Variational-Autoencoder-Guided Asynchronous Bayesian Optimization"
+  authors: Matthieu Dorier, Romain Egele, Prasanna Balaprakash, Jaehoon Koo, Sandeep Madireddy, Srinivasan Ramesh, Allen D. Malony, Rob Ross
+  type: conference
+  venue: Proceedings of the 2022 IEEE International Conference on Cluster Computing (CLUSTER)
+  year: 2022
+  url:
+
 - title: "Colza: Enabling Elastic In Situ Visualization for High-performance Computing Simulations"
   authors: Matthieu Dorier, Zhe Wang, Utkarsh Ayachit, Shane Snyder, Rob Ross, Manish Parashar
   type: conference
