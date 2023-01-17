@@ -1,3 +1,10 @@
+- title: "Adaptive Elasticity Policies for Staging-based In Situ Visualization"
+  authors: Zhe Wang, Matthieu Dorier, Pradeep Subedi, Philip E. Davis, Manish Parashar
+  type: journal
+  venue: Future Generation Computer Systems (FGCS)
+  year: 2023
+  url: https://www.sciencedirect.com/science/article/abs/pii/S0167739X22004150
+
 - title: "Research Perspectives Toward Autonomic Optimization of In Situ Analysis and Visualization"
   authors: Zhe Wang, Matthieu Dorier, Manish Parashar
   type: workshop
