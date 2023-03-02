@@ -1,3 +1,10 @@
+- title: "HEPnOS: a Specialized Data Service for High Energy Physics Analysis"
+  authors: Sajid Ali, Steven Calvez, Philip Carns, Matthieu Dorier, Pengfei Ding, James Kowalkowski, Robert Latham, Andrew Norman, Marc Paterno, Robert Ross, Saba Sehrish, Shane Snyder, Jerome Soumagne
+  type: workshop
+  venue: 4th International Workshop on Extreme-Scale Storage and Analysis (ESSA 2023)
+  year: 2023
+  url:
+
 - title: "Towards Elastic In Situ Analysis for High-performance Computing Simulations"
   authors: Matthieu Dorier, Zhe Wang, Srinivasan Ramesh, Utkarsh Ayachit, Shane Snyder, Rob Ross, Manish Parashar
   type: journal
