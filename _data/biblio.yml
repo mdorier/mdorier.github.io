@@ -17,7 +17,7 @@
   type: workshop
   venue: Proceedings of the ISAV workshop (SC22)
   year: 2022
-  url:
+  url: https://ieeexplore.ieee.org/document/10024653
 
 - title: "HPC Storage Service Autotuning Using Variational-Autoencoder-Guided Asynchronous Bayesian Optimization"
   authors: Matthieu Dorier, Romain Egele, Prasanna Balaprakash, Jaehoon Koo, Sandeep Madireddy, Srinivasan Ramesh, Allen D. Malony, Rob Ross
