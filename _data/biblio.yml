@@ -10,7 +10,7 @@
   type: journal
   venue: Journal of Parallel and Distributed Computing (JPDC)
   year: 2023
-  url:
+  url: https://www.sciencedirect.com/science/article/abs/pii/S0743731523000369
 
 - title: "Adaptive Elasticity Policies for Staging-based In Situ Visualization"
   authors: Zhe Wang, Matthieu Dorier, Pradeep Subedi, Philip E. Davis, Manish Parashar
