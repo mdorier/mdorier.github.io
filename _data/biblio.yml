@@ -305,7 +305,7 @@
   type: workshop
   venue: Sixth International Workshop on Data Intensive Distributed Computing (DIDC)
   year: 2014
-  url: doi.acm.org/10.1145/2608020.2608026
+  url: https://dl.acm.org/doi/10.1145/2608020.2608026
 
 - title: "Damaris/Viz: a Nonintrusive, Adaptable and User-Friendly In Situ Visualization Framework"
   authors: Matthieu Dorier, Roberto R. Sisneros, Tom Peterka, Gabriel Antoniu, Dave B. Semeraro
