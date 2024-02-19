@@ -1,3 +1,10 @@
+- title: "Mochi: A Case Study in Translational Computer Science for High-Performance Computing Data Management"
+  authors: Philip Carns, Matthieu Dorier, Rob Latham, Robert Ross, Shane Snyder, Jerome Soumagne
+  type: journal
+  venue: Computing in Science and Engineering (IEEE CiSE)
+  year: 2023
+  url: https://www.computer.org/csdl/magazine/cs/2023/04/10438050/1UyVkB9j5p6
+
 - title: "HEPnOS: a Specialized Data Service for High Energy Physics Analysis"
   authors: Sajid Ali, Steven Calvez, Philip Carns, Matthieu Dorier, Pengfei Ding, James Kowalkowski, Robert Latham, Andrew Norman, Marc Paterno, Robert Ross, Saba Sehrish, Shane Snyder, Jerome Soumagne
   type: workshop
