@@ -1,3 +1,10 @@
+- title: "Extending the Mochi Methodology to Enable Dynamic HPC Data Services"
+  authors: Matthieu Dorier, Philip Carns, Robert Ross, Shane Snyder, Rob Latham, Amal Gueroudji, George Amvrosiadis, Chuck Cranor, Jerome Soumagne
+  type: workshop
+  venue: 5th International Workshop on Extreme-Scale Storage and Analysis (ESSA 2024) 
+  year: 2024
+  url: 
+  
 - title: "Mochi: A Case Study in Translational Computer Science for High-Performance Computing Data Management"
   authors: Philip Carns, Matthieu Dorier, Rob Latham, Robert Ross, Shane Snyder, Jerome Soumagne
   type: journal
