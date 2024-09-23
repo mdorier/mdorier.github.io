@@ -1,9 +1,16 @@
+- title: "Diaspora: Resilience-Enabling Services for Real-Time Distributed Workflows"
+  authors: Bogdan Nicolae, Justin M Wozniak, Tekin Bicer, Hai Nguyen, Parth Patel, Haochen Pan, Amal Gueroudji, Maxime Gonthier, Valerie Hayot-Sasson, Eliu Huerta, Kyle Chard, Ryan Chard, Matthieu Dorier, Nageswara SV Rao, Anees Al-Najjar, Alessandra Corsi, Ian Foster
+  type: conference
+  venue: 2024 IEEE 20th International Conference on e-Science (e-Science)
+  year: 2024
+  url: https://www.computer.org/csdl/proceedings-article/e-science/2024/10678669/20op9Xf9rPO
+
 - title: "Extending the Mochi Methodology to Enable Dynamic HPC Data Services"
   authors: Matthieu Dorier, Philip Carns, Robert Ross, Shane Snyder, Rob Latham, Amal Gueroudji, George Amvrosiadis, Chuck Cranor, Jerome Soumagne
   type: workshop
   venue: 5th International Workshop on Extreme-Scale Storage and Analysis (ESSA 2024) 
   year: 2024
-  url: 
+  url: https://www.computer.org/csdl/proceedings-article/ipdpsw/2024/646000a414/1YTslDWQx4A
   
 - title: "Mochi: A Case Study in Translational Computer Science for High-Performance Computing Data Management"
   authors: Philip Carns, Matthieu Dorier, Rob Latham, Robert Ross, Shane Snyder, Jerome Soumagne
