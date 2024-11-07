@@ -1,3 +1,17 @@
+- title: "Performance Characterization and Provenance of Distributed Task-based Workflows on HPC Platforms "
+  authors: Amal Gueroudji, Chase Phelps, Tanzima Z. Islam, Philip Carns, Shane Snyder, Matthieu Dorier, Robert B. Ross, Line C. Pouchard
+  type: workshop
+  venue: 19th Workshop on Workflows in Support of Large-Scale Science (WORKS 2024)
+  year: 2024
+  url:
+
+- title: "Thallus: An RDMA-based Columnar Data Transport Protocol"
+  authors: Jayjeet Chakraborty, Matthieu Dorier, Philip Carns, Robert Ross, Carlos Maltzahn, Heiner Litz
+  type: workshop
+  venue: 2nd Workshop on Hot Topics in System Infrastructure (HotInfra 2024) 
+  year: 2024
+  url: https://hotinfra24.github.io/papers/hotinfra24-final12.pdf
+
 - title: "Diaspora: Resilience-Enabling Services for Real-Time Distributed Workflows"
   authors: Bogdan Nicolae, Justin M Wozniak, Tekin Bicer, Hai Nguyen, Parth Patel, Haochen Pan, Amal Gueroudji, Maxime Gonthier, Valerie Hayot-Sasson, Eliu Huerta, Kyle Chard, Ryan Chard, Matthieu Dorier, Nageswara SV Rao, Anees Al-Najjar, Alessandra Corsi, Ian Foster
   type: conference
