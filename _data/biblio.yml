@@ -3,7 +3,7 @@
   type: workshop
   venue: 19th Workshop on Workflows in Support of Large-Scale Science (WORKS 2024)
   year: 2024
-  url:
+  url: https://conferences.computer.org/sc-wpub/pdfs/SC-W2024-6oZmigAQfgJ1GhPL0yE3pS/555400c032/555400c032.pdf
 
 - title: "Thallus: An RDMA-based Columnar Data Transport Protocol"
   authors: Jayjeet Chakraborty, Matthieu Dorier, Philip Carns, Robert Ross, Carlos Maltzahn, Heiner Litz
