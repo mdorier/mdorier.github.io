@@ -256,7 +256,7 @@
   type: conference
   venue: IEEE International Conference on eScience
   year: 2016
-  url: http://dl.acm.org/citation.cfm?id=2987371
+  url: https://ieeexplore.ieee.org/document/7870922
 
 - title: Evaluation of Topology-Aware Broadcast Algorithms for Dragonfly Networks
   authors: Matthieu Dorier, Misbah Mubarak, Rob Ross, Jianping Kelvin Li, Christopher D. Carothers, Kwan-Liu Ma
