@@ -1,3 +1,17 @@
+- title: "Toward a persistent event-streaming system for high-performance computing applications"
+  authors: Matthieu Dorier, Amal Gueroudji, Valrie Hayot-Sasson, Hai Duc Nguyen, Seth Ockerman, Renan Souza, Tekin Bicer, Haochen Pan, Philip Carns, Kyle Chard, Ryan Chard, Maxime Gonthier, Eliu Huerta, Ben Lenard, Bogdan Nicolae, Parth Patel, Justin Wozniak, Ian Foster, Nageswara S. Rao, Robert B. Ross
+  type: journal
+  venue: Frontiers in High Performance Computing
+  year: 2025
+  url: https://www.frontiersin.org/journals/high-performance-computing/articles/10.3389/fhpcp.2025.1638203/full
+
+- title: "ControlA: Agentic Workflow Control Mechanisms for Reliable Science"
+  authors: Amal Gueroudji, Tanwi Mallick, Renan Souza, Rafael Ferreira da Silva, Robert Ross, Matthieu Dorier, Philip Carns, Kyle Chard, Ian Foster
+  type: workshop
+  venue: Second International Workshop on AI Principles in Science Communication (Ai4SC)
+  year: 2025
+  url:
+
 - title: "Towards Empirical Roofline Modeling of Distributed Data Services: Mapping the Boundaries of RPC Throughput"
   authors: Philip Carns, Matthieu Dorier, Rob Latham, Shane Snyder, Amal Gueroudji, Seth Ockerman, Jerome Soumagne, Dong Dai, Robert Ross
   type: conference
