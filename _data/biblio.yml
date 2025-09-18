@@ -1,3 +1,10 @@
+- title: "RESILIO : A Scalable and Composable Architecture for Tomographic Reconstruction Workflows"
+  authors: Amal Gueroudji, Matthieu Dorier, Philip Carns, Parth Patel, Tekin Bicer, Robert Latham, Robert Ross, Kyle Chard, Ian Foster
+  type: workshop
+  venue: 20th Workshop on Workflows in Support of Large-Scale Science (WORKS 25)
+  year: 2025
+  url:
+
 - title: "Toward a persistent event-streaming system for high-performance computing applications"
   authors: Matthieu Dorier, Amal Gueroudji, Valérie Hayot-Sasson, Hai Duc Nguyen, Seth Ockerman, Renan Souza, Tekin Bicer, Haochen Pan, Philip Carns, Kyle Chard, Ryan Chard, Maxime Gonthier, Eliu Huerta, Ben Lenard, Bogdan Nicolae, Parth Patel, Justin Wozniak, Ian Foster, Nageswara S. Rao, Robert B. Ross
   type: journal
