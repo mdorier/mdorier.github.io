@@ -17,14 +17,14 @@
   type: workshop
   venue: Second International Workshop on AI Principles in Science Communication (Ai4SC)
   year: 2025
-  url:
+  url: https://www.computer.org/csdl/proceedings-article/escience/2025/914500a415/2aCq7q0NGi4
 
 - title: "Towards Empirical Roofline Modeling of Distributed Data Services: Mapping the Boundaries of RPC Throughput"
   authors: Philip Carns, Matthieu Dorier, Rob Latham, Shane Snyder, Amal Gueroudji, Seth Ockerman, Jerome Soumagne, Dong Dai, Robert Ross
   type: conference
   venue: Cray User Group (CUG'25)
   year: 2025
-  url:
+  url: https://dl.acm.org/doi/10.1145/3757348.3757358
 
 - title: "Privacy-Preserving Federated Learning for Science: Challenges and Research Directions"
   authors: Kibaek Kim, Krishnan Raghavan, Olivera Kotevska, Matthieu Dorier, Ravi Madduri, Minseok Ryu, Todd Munson, Rob Ross, Thomas Flynn, Ai Kagawa, Byung-Jun Yoon, Christian Engelmann, Farzad Yousefian
