@@ -3,7 +3,7 @@
   type: workshop
   venue: 20th Workshop on Workflows in Support of Large-Scale Science (WORKS 25)
   year: 2025
-  url:
+  url: https://dl.acm.org/doi/10.1145/3731599.3767575
 
 - title: "Toward a persistent event-streaming system for high-performance computing applications"
   authors: Matthieu Dorier, Amal Gueroudji, Valérie Hayot-Sasson, Hai Duc Nguyen, Seth Ockerman, Renan Souza, Tekin Bicer, Haochen Pan, Philip Carns, Kyle Chard, Ryan Chard, Maxime Gonthier, Eliu Huerta, Ben Lenard, Bogdan Nicolae, Parth Patel, Justin Wozniak, Ian Foster, Nageswara S. Rao, Robert B. Ross
