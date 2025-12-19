@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#">
+  <head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Matthieu Dorier">
+	<meta property='og:title' content='Python directives and domain-specific language'/>
+	<meta property='og:url' content='https://mdorier.github.io/2020/07/20/python-directives.html'/>
+	<meta property='og:image' content=''/>
+	<meta property='og:description' content="Matthieu Dorier's Blog"/>
+
+  <title>Matthieu Dorier's website</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/assets/css/resume.css" rel="stylesheet">
+  <link href="/assets/css/github-calendar-responsive.css" rel="stylesheet">
+  <link href="/assets/css/highlight.css" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="/assets/img/avatar.png">
+</head>
+
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <span class="d-block d-lg-none">Matthieu Dorier</span>
+      <span class="d-none d-lg-block">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/assets/img/avatar.png" alt="">
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <!-- Sections can be defined in _data/sections.yaml -->
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#about">About</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#experience">Experience</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#education">Education</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#publications">Publications</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#projects">Projects</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#software">Software</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/index.html#awards">Awards</a>
+          </li>
+        
+        <!-- Blog is not a section but an actual link -->
+          <li class="nav-item">
+            <a class="nav-link" href="/blog.html">Blog</a>
+          </li>
+      </ul>
+    </div>
+</nav>
+
+
+    <div class="container-fluid p-0">
+
+    <hr class="m-0">
+
+<section class="resume-section p-3 p-lg-5 d-flex">
+  <div class="w-100">
+    <h2 class="mb-5">Python directives and domain-specific language</h2>
+    <h4>20 Jul 2020 - <span class="text-primary">Matthieu</span></h4>
+    <p>If you work in high-performance computing, you probably know
+the <a href="https://spack.readthedocs.io/en/latest/">spack</a> package
+manager. In spack, packages are defined as python classes,
+using what looks like a domain-specific language, as exemplified bellow.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Zlib</span><span class="p">(</span><span class="n">Package</span><span class="p">):</span>
+    <span class="s">"""A free, general-purpose, legally unencumbered lossless data-compression library."""</span>
+
+    <span class="n">homepage</span> <span class="o">=</span> <span class="s">"http://zlib.net"</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">"http://zlib.net/fossils/zlib-1.2.11.tar.gz"</span>
+
+    <span class="n">version</span><span class="p">(</span><span class="s">'1.2.11'</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="s">'c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1.2.8'</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="s">'36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1.2.3'</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="s">'1795c7d067a43174113fdf03447532f373e1c6c57c08d61d9e4e9be5e244b05e'</span><span class="p">)</span>
+
+    <span class="n">variant</span><span class="p">(</span><span class="s">'pic'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s">'Produce position-independent code (for shared libs)'</span><span class="p">)</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'shared'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s">'Enables the build of shared libraries.'</span><span class="p">)</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'optimize'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s">'Enable -O2 for a more optimized lib'</span><span class="p">)</span>
+
+    <span class="n">patch</span><span class="p">(</span><span class="s">'w_patch.patch'</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="s">"@1.2.11%cce"</span><span class="p">)</span>
+
+    <span class="p">...</span></code></pre></figure>
+
+<p>The developers of spack took inspiration from <a href="https://brew.sh/">homebrew</a>,
+another package manager, which uses Ruby for its domain specific language.
+While Ruby is very good for this purpose, Python is much harder to use,
+and I always wondered how spack packages worked. Today I dug into the code,
+and managed to reproduce what spack does. So let’s dive into it.</p>
+
+<p>Let’s assume we want to implement the <code class="language-plaintext highlighter-rouge">version</code> and <code class="language-plaintext highlighter-rouge">variant</code> directives,
+and make them available within a <code class="language-plaintext highlighter-rouge">MyPackage</code> class.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span></code></pre></figure>
+
+<p>Executing this code will, of course,  produce an error:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">NameError: name 'variant' is not defined</code></pre></figure>
+
+<p>So we need to define these functions.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling variant with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling version with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span></code></pre></figure>
+
+<p>Now our code prints this:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">Calling variant with x
+Calling version with 1</code></pre></figure>
+
+<p>Great… but how do we modify the <code class="language-plaintext highlighter-rouge">MyPackage</code> class to keep track
+of the versions and variants? Because after all, that’s what we
+are after. Well, we need to know when the class is being created
+by Python, and for this, we have <em>metaclasses</em>. Let’s write one,
+and have <code class="language-plaintext highlighter-rouge">MyPackage</code> use it.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">PackageMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Using {} to create class {} with bases {} and attributes {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+            <span class="n">cls</span><span class="p">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">).</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling variant with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling version with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">)):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span></code></pre></figure>
+
+<p>The code above now prints the following:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">Calling variant with x
+Calling version with 1
+Using PackageMeta to create class MyPackage with bases () and attributes {'__module__': '__main__'}</code></pre></figure>
+
+<p>We can see that the directives inside <code class="language-plaintext highlighter-rouge">MyPackage</code> are called first, then the <code class="language-plaintext highlighter-rouge">__new__</code>
+method of the metaclass. We can use this to our advantage by having the <code class="language-plaintext highlighter-rouge">variant</code> and <code class="language-plaintext highlighter-rouge">version</code>
+functions modify some static attributes of the metaclass, then use these static attributes during
+the creation of the <code class="language-plaintext highlighter-rouge">MyPackage</code> class.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">PackageMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="n">versions_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">variants_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="n">attr_dict</span><span class="p">[</span><span class="s">'versions'</span><span class="p">]</span> <span class="o">=</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">versions_to_add</span>
+        <span class="n">attr_dict</span><span class="p">[</span><span class="s">'variants'</span><span class="p">]</span> <span class="o">=</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">variants_to_add</span>
+        <span class="n">PackageMeta</span><span class="p">.</span><span class="n">versions_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">PackageMeta</span><span class="p">.</span><span class="n">variants_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">).</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">PackageMeta</span><span class="p">.</span><span class="n">variants_to_add</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">PackageMeta</span><span class="p">.</span><span class="n">versions_to_add</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">)):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has versions {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">versions</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has variants {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">variants</span><span class="p">))</span></code></pre></figure>
+
+<p>This code now successfully adds the <code class="language-plaintext highlighter-rouge">versions</code> and <code class="language-plaintext highlighter-rouge">variants</code> static attributes
+to the class, and will print the following:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">MyPackage has versions ['1']
+MyPackage has variants ['x']</code></pre></figure>
+
+<p>We can make this code a little safer by using <code class="language-plaintext highlighter-rouge">_versions_to_add</code> instead
+of <code class="language-plaintext highlighter-rouge">versions_to_add</code> (private attribute), by defining a <code class="language-plaintext highlighter-rouge">version</code> static method
+in <code class="language-plaintext highlighter-rouge">PackageMeta</code>, and by adding <code class="language-plaintext highlighter-rouge">version = PackageMeta.version</code> right outside
+of the <code class="language-plaintext highlighter-rouge">PackagetMeta</code> class to make it usable at global scope.</p>
+
+<h2 id="going-one-step-further">Going one step further</h2>
+
+<p>The part of spack that implements the mechanism above is in the
+<a href="https://github.com/spack/spack/blob/develop/lib/spack/spack/directives.py">directives.py</a> file.
+But if you read it, you will find that it doesn’t look very much like what I have
+shown above. This is because the spack developers have gone one step further
+by using decorators and functional programming to allow adding new directives as needed.
+We can try to do something similar:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">PackageMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="n">list_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">directives_to_execute</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">list_names</span><span class="p">:</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">).</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">pkg</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">directive</span> <span class="ow">in</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">directives_to_execute</span><span class="p">:</span>
+            <span class="n">directive</span><span class="p">(</span><span class="n">pkg</span><span class="p">)</span>
+        <span class="n">PackageMeta</span><span class="p">.</span><span class="n">directives_to_execute</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">directive</span><span class="p">(</span><span class="n">list_name</span><span class="p">):</span>
+    <span class="n">PackageMeta</span><span class="p">.</span><span class="n">list_names</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">list_name</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">PackageMeta</span><span class="p">.</span><span class="n">directives_to_execute</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_wrapper</span>
+    <span class="k">return</span> <span class="n">_decorator</span>
+
+<span class="o">@</span><span class="n">directive</span><span class="p">(</span><span class="s">'variants'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_execute_variant</span><span class="p">(</span><span class="n">pkg</span><span class="p">):</span>
+        <span class="n">pkg</span><span class="p">.</span><span class="n">variants</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_execute_variant</span>
+
+<span class="o">@</span><span class="n">directive</span><span class="p">(</span><span class="s">'versions'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_execute_version</span><span class="p">(</span><span class="n">pkg</span><span class="p">):</span>
+        <span class="n">pkg</span><span class="p">.</span><span class="n">versions</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_execute_version</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">)):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has versions {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">versions</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has variants {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">variants</span><span class="p">))</span></code></pre></figure>
+
+<p>This code is, again, a simplification of what Spack does, but let’s dive into it,
+focusing on the <code class="language-plaintext highlighter-rouge">variant</code> directive (<code class="language-plaintext highlighter-rouge">version</code> works in exactly the same way).</p>
+
+<p>The first thing Python encounters is the <code class="language-plaintext highlighter-rouge">directive</code> decorator wrapping the <code class="language-plaintext highlighter-rouge">variant</code>
+function. This directive takes the name of a list (<code class="language-plaintext highlighter-rouge">"variants"</code>): this is the list
+in which we will want to add variants. We pass this name to the decorator so that
+it can add this name to <code class="language-plaintext highlighter-rouge">PackageMeta.list_names</code>, a list of list names that
+<code class="language-plaintext highlighter-rouge">PackageMeta</code> will have to use when creating a class’ attributes.</p>
+
+<p>The second thing the <code class="language-plaintext highlighter-rouge">directive</code> decorator does it return a <code class="language-plaintext highlighter-rouge">_wrapper</code> for the
+decorated function. At this point, the name <code class="language-plaintext highlighter-rouge">variant</code> does not refer to the
+<code class="language-plaintext highlighter-rouge">variant</code> function anymore, but to a wrapper around it, and <code class="language-plaintext highlighter-rouge">PackageMeta.list_names</code>
+contains <code class="language-plaintext highlighter-rouge">"variants"</code>. More directives (like <code class="language-plaintext highlighter-rouge">version</code>) are added the same way.</p>
+
+<p>Next, we enter the <code class="language-plaintext highlighter-rouge">MyPackage</code> definition, and call <code class="language-plaintext highlighter-rouge">variant('x')</code>. This calls the
+<code class="language-plaintext highlighter-rouge">_wrapper</code> function, which executes the actual <code class="language-plaintext highlighter-rouge">variant</code> function. The <code class="language-plaintext highlighter-rouge">variant</code>
+function returns the <code class="language-plaintext highlighter-rouge">_execute_version</code> function, which is stored in
+<code class="language-plaintext highlighter-rouge">PackageMeta.directives_to_execute</code>.</p>
+
+<p>When, at last, <code class="language-plaintext highlighter-rouge">PackageMeta.__new__</code> is called, <code class="language-plaintext highlighter-rouge">PackageMeta.list_names</code> contains
+the list of attributes that we have to create. This is done by adding them
+to the <code class="language-plaintext highlighter-rouge">attr_dict</code> variable. At this point, all is left is to call the actual
+directives. But we cannot do that before the class is created, since the
+directives take a class as argument. Hence, we have to call these directives
+in <code class="language-plaintext highlighter-rouge">PackageMeta.__new__</code>, which is called with the created class. This function
+goes through <code class="language-plaintext highlighter-rouge">PackageMeta.directives_to_execute</code>, finds <code class="language-plaintext highlighter-rouge">_execute_variant</code> in
+it and calls it, which leads to the variant being added to <code class="language-plaintext highlighter-rouge">MyPackage.variants</code>.</p>
+
+<p>And voilà!</p>
+
+    <script src="https://utteranc.es/client.js"
+        repo="mdorier/mdorier.github.io"
+        issue-term="pathname"
+        label="Comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
+
+  </div>
+</section>
+<hr class="m-0">
+
+
+    </div>
+
+      <!-- Bootstrap core JavaScript -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="/assets/js/resume.min.js"></script>
+
+
+  </body>
+
+</html>

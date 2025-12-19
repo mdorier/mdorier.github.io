@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="https://mdorier.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mdorier.github.io/" rel="alternate" type="text/html" /><updated>2025-12-19T09:18:59+00:00</updated><id>https://mdorier.github.io/feed.xml</id><title type="html">Matthieu Dorier’s Website</title><subtitle>Matthieu Dorier's Website. Software Development Specialist working on high performance computing I/O and data management.</subtitle><entry><title type="html">Using C++17 metaprogramming to compute a function’s signature at compile time</title><link href="https://mdorier.github.io/2020/07/27/cpp-constexpr.html" rel="alternate" type="text/html" title="Using C++17 metaprogramming to compute a function’s signature at compile time" /><published>2020-07-27T00:00:00+00:00</published><updated>2020-07-27T00:00:00+00:00</updated><id>https://mdorier.github.io/2020/07/27/cpp-constexpr</id><content type="html" xml:base="https://mdorier.github.io/2020/07/27/cpp-constexpr.html"><![CDATA[<p>Constructing a string that represents a function’s signature in C++ is a common problem,
+often showing up when wrapping low-level C libraries with higher-level, heavily-templated
+C++ code. One way of getting a type name in C++ is as follows:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">auto</span> <span class="n">name</span> <span class="o">=</span> <span class="k">typeid</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">name</span><span class="p">();</span></code></pre></figure>
+
+<p>Where <code class="language-plaintext highlighter-rouge">x</code> is the variable whose type name you want. Let’s use that for a function:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">char</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="kt">long</span><span class="o">*</span><span class="p">,</span> <span class="kt">char</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]);</span>
+<span class="k">auto</span> <span class="n">name</span> <span class="o">=</span> <span class="k">typeid</span><span class="p">(</span><span class="n">f</span><span class="p">).</span><span class="n">name</span><span class="p">();</span></code></pre></figure>
+
+<p>When we print out the <code class="language-plaintext highlighter-rouge">name</code> however, we get <code class="language-plaintext highlighter-rouge">FvRKiOcPlPA4_cE</code>. Ouch!
+Quoting <a href="https://en.cppreference.com/w/cpp/types/type_info/name">cppreference</a>:</p>
+
+<p><em>Some implementations (such as MSVC, IBM, Oracle) produce a human-readable type name.
+Others, most notably gcc and clang, return the mangled name, which is specified by the Itanium C++ ABI.</em></p>
+
+<p>While we could go an use something like <code class="language-plaintext highlighter-rouge">boost::core::demangle</code> to produce a
+readable name, the whole type_info/demangle machinery works at run time. What
+if we want the string <em>at compile time</em>? And what if we want to customize it?
+An example would be returning <code class="language-plaintext highlighter-rouge">"%d, %f -&gt; %c"</code> when given a function
+that looks like <code class="language-plaintext highlighter-rouge">char f(int, float)</code>, as a way to produce a formatting string
+for a C-style logger.</p>
+
+<p>This problem got me interested, so in this post I’ll show you how to produce 
+a function’s signature at compile time in C++17, using a mix of <em>templates</em>,
+<em>constexpr</em>, and <em>type traits</em>.</p>
+
+<h3 id="writing-a-type_name-structure">Writing a <code class="language-plaintext highlighter-rouge">type_name</code> structure</h3>
+
+<p>The problem we want to solve consists of writing a <code class="language-plaintext highlighter-rouge">type_name</code> template structure
+with a <code class="language-plaintext highlighter-rouge">get</code> static function, such that for any type <code class="language-plaintext highlighter-rouge">T</code>, <code class="language-plaintext highlighter-rouge">type_name&lt;T&gt;::get()</code>
+will return a string name. Let’s start with its declaration.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="o">...</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="p">;</span></code></pre></figure>
+
+<p>The use of a variadic template will make sense later. We now need to
+specialize this template structure for various types, and provide the <code class="language-plaintext highlighter-rouge">get</code>
+function in these specializations.</p>
+
+<p>In C++17, <code class="language-plaintext highlighter-rouge">std::string</code> doesn’t have constexpr constructors, so we can’t have <code class="language-plaintext highlighter-rouge">get</code>
+return an <code class="language-plaintext highlighter-rouge">std::string</code>. We cannot return a <code class="language-plaintext highlighter-rouge">char[]</code> either. So we first need to
+write a little <code class="language-plaintext highlighter-rouge">constexpr_string</code> structure to hold strings that can be constructed
+and returned in a constexpr context.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">unsigned</span> <span class="n">N</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">constexpr_string</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">value</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Since we are not going to use <code class="language-plaintext highlighter-rouge">typeid</code>, we need to provide the name of simple
+types ourselves. Let’s specialize our <code class="language-plaintext highlighter-rouge">type_name</code> structure for simple types,
+for example <code class="language-plaintext highlighter-rouge">int</code>:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">static</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">constexpr_string</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">{</span><span class="s">"int"</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>In fact, let’s make this a macro, so we can call it for other basic types
+(or any classes to which we want to provide a name).</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REGISTER_TYPE_NAME(__type__) \
+    template&lt;&gt; struct type_name&lt;__type__&gt; { \
+        constexpr static auto get() { \
+            return constexpr_string&lt;sizeof #__type__&gt;{#__type__}; \
+        } \
+    }
+</span>
+<span class="n">REGISTER_TYPE_NAME</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="n">REGISTER_TYPE_NAME</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+<span class="n">REGISTER_TYPE_NAME</span><span class="p">(</span><span class="kt">char</span><span class="p">);</span>
+<span class="n">REGISTER_TYPE_NAME</span><span class="p">(</span><span class="kt">long</span><span class="p">);</span>
+<span class="n">REGISTER_TYPE_NAME</span><span class="p">(</span><span class="kt">double</span><span class="p">);</span>
+<span class="n">REGISTER_TYPE_NAME</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span></code></pre></figure>
+
+<p>We could register names for a bunch of other basic types, but let’s leave it at
+that for the moment.</p>
+
+<p>Let’s also provide a specialization for any type not registered:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">constexpr_string</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">{</span><span class="s">"&lt;unknown&gt;"</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<h3 id="concatenating-constexpr_strings">Concatenating <code class="language-plaintext highlighter-rouge">constexpr_string</code>s</h3>
+
+<p>If we want to display multiple type, as is typical in a function signature, we
+will need to concatenate <code class="language-plaintext highlighter-rouge">constexpr_string</code>s. This can be done in a constexpr
+context as follows.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="p">...</span><span class="n">L</span><span class="p">&gt;</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">cat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="p">(</span><span class="o">&amp;</span><span class="p">...</span><span class="n">strings</span><span class="p">)[</span><span class="n">L</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="n">N</span> <span class="o">=</span> <span class="p">(...</span> <span class="o">+</span> <span class="n">L</span><span class="p">)</span> <span class="o">-</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">L</span><span class="p">);</span>
+    <span class="n">constexpr_string</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="n">result</span><span class="p">.</span><span class="n">value</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+
+    <span class="kt">char</span><span class="o">*</span> <span class="n">dst</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">src</span> <span class="o">:</span> <span class="p">{</span><span class="n">strings</span><span class="p">...})</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(;</span> <span class="o">*</span><span class="n">src</span> <span class="o">!=</span> <span class="sc">'\0'</span><span class="p">;</span> <span class="n">src</span><span class="o">++</span><span class="p">,</span> <span class="n">dst</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">dst</span> <span class="o">=</span> <span class="o">*</span><span class="n">src</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Let’s dive a little into this function: it takes as parameters
+an arbitrary number of <code class="language-plaintext highlighter-rouge">char</code> arrays (we will use that so we can directly
+pass string litterals as well). It then computes <code class="language-plaintext highlighter-rouge">N</code> as the sum of the lengths
+of all the input strings (sing a fold-expression) , minus the number of
+strings (to remove the trailing null-terminator of each string).
+It initializes the <code class="language-plaintext highlighter-rouge">result</code> string with a
+length of <code class="language-plaintext highlighter-rouge">N+1</code> (to accomodate for <code class="language-plaintext highlighter-rouge">result</code>’s own null-terminator, which
+is assigned next). It then iterates over all the input strings, and over
+all their characters, to copy them into the result. All of this can be done
+at compile time.</p>
+
+<h3 id="printing-a-list-of-type-names">Printing a list of type names</h3>
+
+<p>Using the above <code class="language-plaintext highlighter-rouge">cat</code> function, we can now specialize our <code class="language-plaintext highlighter-rouge">type_name</code> structure
+to handle a list of template parameters with more than one type. In this example
+we will add a <code class="language-plaintext highlighter-rouge">", "</code> separator between them.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="o">...</span> <span class="nc">Other</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span> <span class="n">Other</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">T1</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">", "</span><span class="p">,</span>
+                   <span class="n">type_name</span><span class="o">&lt;</span><span class="n">Other</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>We can now specialize the <code class="language-plaintext highlighter-rouge">type_name</code> for functions by using the above specialization
+to get a comma-separated list of argument types, preceded and followed by parenthesis,
+and follows by the type of the return value.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">R</span><span class="p">,</span> <span class="k">typename</span> <span class="o">...</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="n">R</span><span class="p">(</span><span class="n">T</span><span class="p">...)</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="s">"("</span><span class="p">,</span> <span class="n">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">")"</span><span class="p">,</span>
+                   <span class="s">" -&gt; "</span><span class="p">,</span> <span class="n">type_name</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Now if we declare <code class="language-plaintext highlighter-rouge">double f(int, char)</code> and call <code class="language-plaintext highlighter-rouge">type_name&lt;decltype(f)&gt;::get().value</code>
+we obtain <code class="language-plaintext highlighter-rouge">"(int, char) -&gt; double"</code>.</p>
+
+<h3 id="handling-const-references-pointers-etc">Handling const, references, pointers, etc.</h3>
+
+<p>If we try what we have coded so far with <code class="language-plaintext highlighter-rouge">double&amp; f(const int&amp;, char&amp;&amp;, float*, long[2][3])</code>,
+we obtain… <code class="language-plaintext highlighter-rouge">"(&lt;unknown&gt;, &lt;unknown&gt;, &lt;unknown&gt;, &lt;unknown&gt;) -&gt; &lt;unknown&gt;"</code>. Very helpful…
+This is because while we have registered the basic types, we haven’t registered references
+to these types, or pointers, or arrays. We can fix that we going back to our specialization
+of <code class="language-plaintext highlighter-rouge">type_name</code> that took a single <code class="language-plaintext highlighter-rouge">T</code> parameter, and use type traits along with constexpr if
+statements to detect these modifiers.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_pointer_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_pointer_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">"*"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="s">"const "</span><span class="p">,</span> <span class="n">type_name</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_const_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_rvalue_reference_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">"&amp;&amp;"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">"&amp;"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">constexpr_string</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">&gt;</span><span class="p">{</span><span class="s">"&lt;unknown&gt;"</span><span class="p">};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Now we get <code class="language-plaintext highlighter-rouge">"(const int&amp;, char&amp;&amp;, float*, &lt;unknown&gt;*) -&gt; double&amp;"</code>. Why is <code class="language-plaintext highlighter-rouge">long[2][3]</code>
+transformed into <code class="language-plaintext highlighter-rouge">&lt;unknown&gt;*</code>? Well, because <code class="language-plaintext highlighter-rouge">long[2][3]</code> decayes into <code class="language-plaintext highlighter-rouge">long[2]*</code>, not
+into <code class="language-plaintext highlighter-rouge">long**</code>, and our code doesn’t know how to handle arrays. We need to add support for
+arrays, as follows.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">"[]"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">N</span><span class="p">&gt;</span>
+<span class="k">struct</span> <span class="nc">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">cat</span><span class="p">(</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">get</span><span class="p">().</span><span class="n">value</span><span class="p">,</span> <span class="s">"[]"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>We now have the following signature: <code class="language-plaintext highlighter-rouge">"(const int&amp;, char&amp;&amp;, float*, long[]*) -&gt; double&amp;"</code>.
+This mechanism ignores the length of the array <code class="language-plaintext highlighter-rouge">N</code> and just prints <code class="language-plaintext highlighter-rouge">[]</code>. I leave it as
+an exercise to the reader to come up with a mechanism that builds a <code class="language-plaintext highlighter-rouge">constexpr_string</code>
+decimal representation of <code class="language-plaintext highlighter-rouge">N</code> in a constexpr context. If you understood the code above,
+and have some knowledge of constexpr, templates, and C++17 metaprogramming in general,
+you will surely find the solution.</p>
+
+<p>There are of course some more details to take into considerations, such as handling
+member object/function pointers (with <code class="language-plaintext highlighter-rouge">std::is_member_object_pointer</code> and
+<code class="language-plaintext highlighter-rouge">std::is_member_function_pointer</code>), or properly displaying functions that take
+a function pointer as argument (for instance <code class="language-plaintext highlighter-rouge">void g(int (*)(char, char))</code>
+is shown to have the type <code class="language-plaintext highlighter-rouge">"((char, char) -&gt; int*) -&gt; void"</code>, which looks
+like it takes a function that returns an <code class="language-plaintext highlighter-rouge">int*</code>, instead of a pointer to a function
+that returns an <code class="language-plaintext highlighter-rouge">int</code>).</p>
+
+<p>If you want to try the code of this blog post for yourself, you can head
+<a href="https://godbolt.org/z/vh7zaW5sn" target="_blank">here</a>
+and you’ll see from the assembly that all of this does compute the signature
+at compile time.</p>]]></content><author><name>Matthieu</name></author><summary type="html"><![CDATA[Constructing a string that represents a function’s signature in C++ is a common problem, often showing up when wrapping low-level C libraries with higher-level, heavily-templated C++ code. One way of getting a type name in C++ is as follows:]]></summary></entry><entry><title type="html">Python directives and domain-specific language</title><link href="https://mdorier.github.io/2020/07/20/python-directives.html" rel="alternate" type="text/html" title="Python directives and domain-specific language" /><published>2020-07-20T00:00:00+00:00</published><updated>2020-07-20T00:00:00+00:00</updated><id>https://mdorier.github.io/2020/07/20/python-directives</id><content type="html" xml:base="https://mdorier.github.io/2020/07/20/python-directives.html"><![CDATA[<p>If you work in high-performance computing, you probably know
+the <a href="https://spack.readthedocs.io/en/latest/">spack</a> package
+manager. In spack, packages are defined as python classes,
+using what looks like a domain-specific language, as exemplified bellow.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Zlib</span><span class="p">(</span><span class="n">Package</span><span class="p">):</span>
+    <span class="s">"""A free, general-purpose, legally unencumbered lossless data-compression library."""</span>
+
+    <span class="n">homepage</span> <span class="o">=</span> <span class="s">"http://zlib.net"</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">"http://zlib.net/fossils/zlib-1.2.11.tar.gz"</span>
+
+    <span class="n">version</span><span class="p">(</span><span class="s">'1.2.11'</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="s">'c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1.2.8'</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="s">'36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1.2.3'</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="s">'1795c7d067a43174113fdf03447532f373e1c6c57c08d61d9e4e9be5e244b05e'</span><span class="p">)</span>
+
+    <span class="n">variant</span><span class="p">(</span><span class="s">'pic'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s">'Produce position-independent code (for shared libs)'</span><span class="p">)</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'shared'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s">'Enables the build of shared libraries.'</span><span class="p">)</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'optimize'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s">'Enable -O2 for a more optimized lib'</span><span class="p">)</span>
+
+    <span class="n">patch</span><span class="p">(</span><span class="s">'w_patch.patch'</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="s">"@1.2.11%cce"</span><span class="p">)</span>
+
+    <span class="p">...</span></code></pre></figure>
+
+<p>The developers of spack took inspiration from <a href="https://brew.sh/">homebrew</a>,
+another package manager, which uses Ruby for its domain specific language.
+While Ruby is very good for this purpose, Python is much harder to use,
+and I always wondered how spack packages worked. Today I dug into the code,
+and managed to reproduce what spack does. So let’s dive into it.</p>
+
+<p>Let’s assume we want to implement the <code class="language-plaintext highlighter-rouge">version</code> and <code class="language-plaintext highlighter-rouge">variant</code> directives,
+and make them available within a <code class="language-plaintext highlighter-rouge">MyPackage</code> class.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span></code></pre></figure>
+
+<p>Executing this code will, of course,  produce an error:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">NameError: name 'variant' is not defined</code></pre></figure>
+
+<p>So we need to define these functions.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling variant with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling version with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span></code></pre></figure>
+
+<p>Now our code prints this:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">Calling variant with x
+Calling version with 1</code></pre></figure>
+
+<p>Great… but how do we modify the <code class="language-plaintext highlighter-rouge">MyPackage</code> class to keep track
+of the versions and variants? Because after all, that’s what we
+are after. Well, we need to know when the class is being created
+by Python, and for this, we have <em>metaclasses</em>. Let’s write one,
+and have <code class="language-plaintext highlighter-rouge">MyPackage</code> use it.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">PackageMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Using {} to create class {} with bases {} and attributes {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+            <span class="n">cls</span><span class="p">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">).</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling variant with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="s">'Calling version with {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">)):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span></code></pre></figure>
+
+<p>The code above now prints the following:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">Calling variant with x
+Calling version with 1
+Using PackageMeta to create class MyPackage with bases () and attributes {'__module__': '__main__'}</code></pre></figure>
+
+<p>We can see that the directives inside <code class="language-plaintext highlighter-rouge">MyPackage</code> are called first, then the <code class="language-plaintext highlighter-rouge">__new__</code>
+method of the metaclass. We can use this to our advantage by having the <code class="language-plaintext highlighter-rouge">variant</code> and <code class="language-plaintext highlighter-rouge">version</code>
+functions modify some static attributes of the metaclass, then use these static attributes during
+the creation of the <code class="language-plaintext highlighter-rouge">MyPackage</code> class.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">PackageMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="n">versions_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">variants_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="n">attr_dict</span><span class="p">[</span><span class="s">'versions'</span><span class="p">]</span> <span class="o">=</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">versions_to_add</span>
+        <span class="n">attr_dict</span><span class="p">[</span><span class="s">'variants'</span><span class="p">]</span> <span class="o">=</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">variants_to_add</span>
+        <span class="n">PackageMeta</span><span class="p">.</span><span class="n">versions_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">PackageMeta</span><span class="p">.</span><span class="n">variants_to_add</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">).</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">PackageMeta</span><span class="p">.</span><span class="n">variants_to_add</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="n">PackageMeta</span><span class="p">.</span><span class="n">versions_to_add</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">)):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has versions {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">versions</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has variants {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">variants</span><span class="p">))</span></code></pre></figure>
+
+<p>This code now successfully adds the <code class="language-plaintext highlighter-rouge">versions</code> and <code class="language-plaintext highlighter-rouge">variants</code> static attributes
+to the class, and will print the following:</p>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">MyPackage has versions ['1']
+MyPackage has variants ['x']</code></pre></figure>
+
+<p>We can make this code a little safer by using <code class="language-plaintext highlighter-rouge">_versions_to_add</code> instead
+of <code class="language-plaintext highlighter-rouge">versions_to_add</code> (private attribute), by defining a <code class="language-plaintext highlighter-rouge">version</code> static method
+in <code class="language-plaintext highlighter-rouge">PackageMeta</code>, and by adding <code class="language-plaintext highlighter-rouge">version = PackageMeta.version</code> right outside
+of the <code class="language-plaintext highlighter-rouge">PackagetMeta</code> class to make it usable at global scope.</p>
+
+<h2 id="going-one-step-further">Going one step further</h2>
+
+<p>The part of spack that implements the mechanism above is in the
+<a href="https://github.com/spack/spack/blob/develop/lib/spack/spack/directives.py">directives.py</a> file.
+But if you read it, you will find that it doesn’t look very much like what I have
+shown above. This is because the spack developers have gone one step further
+by using decorators and functional programming to allow adding new directives as needed.
+We can try to do something similar:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">PackageMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="n">list_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">directives_to_execute</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">list_names</span><span class="p">:</span>
+            <span class="n">attr_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">).</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">pkg</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attr_dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">directive</span> <span class="ow">in</span> <span class="n">PackageMeta</span><span class="p">.</span><span class="n">directives_to_execute</span><span class="p">:</span>
+            <span class="n">directive</span><span class="p">(</span><span class="n">pkg</span><span class="p">)</span>
+        <span class="n">PackageMeta</span><span class="p">.</span><span class="n">directives_to_execute</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">directive</span><span class="p">(</span><span class="n">list_name</span><span class="p">):</span>
+    <span class="n">PackageMeta</span><span class="p">.</span><span class="n">list_names</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">list_name</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">PackageMeta</span><span class="p">.</span><span class="n">directives_to_execute</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_wrapper</span>
+    <span class="k">return</span> <span class="n">_decorator</span>
+
+<span class="o">@</span><span class="n">directive</span><span class="p">(</span><span class="s">'variants'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">variant</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_execute_variant</span><span class="p">(</span><span class="n">pkg</span><span class="p">):</span>
+        <span class="n">pkg</span><span class="p">.</span><span class="n">variants</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_execute_variant</span>
+
+<span class="o">@</span><span class="n">directive</span><span class="p">(</span><span class="s">'versions'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_execute_version</span><span class="p">(</span><span class="n">pkg</span><span class="p">):</span>
+        <span class="n">pkg</span><span class="p">.</span><span class="n">versions</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_execute_version</span>
+
+<span class="k">class</span> <span class="nc">MyPackage</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">PackageMeta</span><span class="p">)):</span>
+    <span class="n">variant</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+    <span class="n">version</span><span class="p">(</span><span class="s">'1'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has versions {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">versions</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'MyPackage has variants {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">MyPackage</span><span class="p">.</span><span class="n">variants</span><span class="p">))</span></code></pre></figure>
+
+<p>This code is, again, a simplification of what Spack does, but let’s dive into it,
+focusing on the <code class="language-plaintext highlighter-rouge">variant</code> directive (<code class="language-plaintext highlighter-rouge">version</code> works in exactly the same way).</p>
+
+<p>The first thing Python encounters is the <code class="language-plaintext highlighter-rouge">directive</code> decorator wrapping the <code class="language-plaintext highlighter-rouge">variant</code>
+function. This directive takes the name of a list (<code class="language-plaintext highlighter-rouge">"variants"</code>): this is the list
+in which we will want to add variants. We pass this name to the decorator so that
+it can add this name to <code class="language-plaintext highlighter-rouge">PackageMeta.list_names</code>, a list of list names that
+<code class="language-plaintext highlighter-rouge">PackageMeta</code> will have to use when creating a class’ attributes.</p>
+
+<p>The second thing the <code class="language-plaintext highlighter-rouge">directive</code> decorator does it return a <code class="language-plaintext highlighter-rouge">_wrapper</code> for the
+decorated function. At this point, the name <code class="language-plaintext highlighter-rouge">variant</code> does not refer to the
+<code class="language-plaintext highlighter-rouge">variant</code> function anymore, but to a wrapper around it, and <code class="language-plaintext highlighter-rouge">PackageMeta.list_names</code>
+contains <code class="language-plaintext highlighter-rouge">"variants"</code>. More directives (like <code class="language-plaintext highlighter-rouge">version</code>) are added the same way.</p>
+
+<p>Next, we enter the <code class="language-plaintext highlighter-rouge">MyPackage</code> definition, and call <code class="language-plaintext highlighter-rouge">variant('x')</code>. This calls the
+<code class="language-plaintext highlighter-rouge">_wrapper</code> function, which executes the actual <code class="language-plaintext highlighter-rouge">variant</code> function. The <code class="language-plaintext highlighter-rouge">variant</code>
+function returns the <code class="language-plaintext highlighter-rouge">_execute_version</code> function, which is stored in
+<code class="language-plaintext highlighter-rouge">PackageMeta.directives_to_execute</code>.</p>
+
+<p>When, at last, <code class="language-plaintext highlighter-rouge">PackageMeta.__new__</code> is called, <code class="language-plaintext highlighter-rouge">PackageMeta.list_names</code> contains
+the list of attributes that we have to create. This is done by adding them
+to the <code class="language-plaintext highlighter-rouge">attr_dict</code> variable. At this point, all is left is to call the actual
+directives. But we cannot do that before the class is created, since the
+directives take a class as argument. Hence, we have to call these directives
+in <code class="language-plaintext highlighter-rouge">PackageMeta.__new__</code>, which is called with the created class. This function
+goes through <code class="language-plaintext highlighter-rouge">PackageMeta.directives_to_execute</code>, finds <code class="language-plaintext highlighter-rouge">_execute_variant</code> in
+it and calls it, which leads to the variant being added to <code class="language-plaintext highlighter-rouge">MyPackage.variants</code>.</p>
+
+<p>And voilà!</p>]]></content><author><name>Matthieu</name></author><summary type="html"><![CDATA[If you work in high-performance computing, you probably know the spack package manager. In spack, packages are defined as python classes, using what looks like a domain-specific language, as exemplified bellow.]]></summary></entry></feed>
