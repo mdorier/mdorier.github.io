@@ -1,4 +1,11 @@
-- title: "RESILIO : A Scalable and Composable Architecture for Tomographic Reconstruction Workflows"
+- title: "Throughput Estimation of Data Transport Networks from Digital Twin Measurements"
+  authors: Nageswara S. V. Rao, Anees Al-Najjar, Raj Kettimuthu, Ian Foster, Kyle Chard, Ryan Chard, Amal Gueroudji, Matthieu Dorier, Valérie Hayot-Sasson, Hai Duc Nguyen, Maxime Gonthier, Tekin Bicer, Haochen Pan, Eliu Huerta, Bogdan Nicolae, Parth Patel, Justin M. Wozniak
+  type: journal
+  venue: IEEE Transactions on Machine Learning in Communications and Networking (IEEE TMLCN)
+  year: 2026
+  url: https://ieeexplore.ieee.org/document/11514121
+
+- title: "RESILIO: A Scalable and Composable Architecture for Tomographic Reconstruction Workflows"
   authors: Amal Gueroudji, Matthieu Dorier, Philip Carns, Parth Patel, Tekin Bicer, Robert Latham, Robert Ross, Kyle Chard, Ian Foster
   type: workshop
   venue: 20th Workshop on Workflows in Support of Large-Scale Science (WORKS 25)
